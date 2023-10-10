@@ -17,18 +17,11 @@
 
 
 #include <cmath>
-#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
-#include <deque>
-#include <fstream>
-#include <iostream>
-#include <numeric>
-#include <string>
-#include <vector>
 
-#include "exprtk.hpp"
-
+import std;
+import exprtk;
 
 #ifdef exprtk_test_float32_type
 typedef float numeric_type;
@@ -3798,7 +3791,7 @@ inline bool run_test10()
    {
       static inline bool variable(exprtk::symbol_table<T>& symbol_table, const std::string& variable_name, const T& value)
       {
-         exprtk::details::variable_node<T>* var = symbol_table.get_variable(variable_name);
+         auto var = symbol_table.get_variable(variable_name);
 
          if (var)
             return (!not_equal(var->ref(),value));
@@ -3808,7 +3801,7 @@ inline bool run_test10()
 
       static inline bool string(exprtk::symbol_table<T>& symbol_table, const std::string& string_name, const std::string& str)
       {
-         exprtk::details::stringvar_node<T>* str_node = symbol_table.get_stringvar(string_name);
+         auto str_node = symbol_table.get_stringvar(string_name);
 
          if (str_node)
             return (str_node->ref() == str);
@@ -5183,7 +5176,7 @@ struct sine_deg : public exprtk::ifunction<T>
 
    inline T operator()(const T& v)
    {
-      return std::sin((v * T(exprtk::details::numeric::constant::pi)) / T(180));
+      return std::sin((v * std::numbers::pi_v<T>) / T(180));
    }
 };
 
@@ -5196,7 +5189,7 @@ struct cosine_deg : public exprtk::ifunction<T>
 
    inline T operator()(const T& v)
    {
-      return std::cos((v * T(exprtk::details::numeric::constant::pi)) / T(180));
+      return std::cos((v * std::numbers::pi_v<T>) / T(180));
    }
 };
 

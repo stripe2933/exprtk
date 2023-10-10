@@ -19,9 +19,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
-#include <string>
 
-#include "exprtk.hpp"
+import std;
+import exprtk;
 
 
 template <typename T>
@@ -70,7 +70,7 @@ void savitzky_golay_filter()
    for (T t = T(-5); t <= T(+5); t += T(10.0 / n))
    {
       const T noise = T(0.5 * (rand() / (RAND_MAX + 1.0) - 0.5));
-      v_in.push_back(sin(2.0 * pi * t) + noise);
+      v_in.push_back(std::sin(2.0 * pi * t) + noise);
    }
 
    v_out.resize(v_in.size());

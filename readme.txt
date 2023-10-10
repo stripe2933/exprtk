@@ -131,16 +131,14 @@ locations:
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 [SECTION 05 - INSTALLATION]
-The header  file exprtk.hpp  should be  placed in a project or  system
-include path (e.g: /usr/include/).
+The C++ module file exprtk.cppm should be  placed in a project.
 
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 [SECTION 06 - COMPILATION]
-  (a) For a complete build: make clean all
-  (b) For a PGO build: make clean pgo
-  (c) To strip executables: make strip_bin
-  (d) Execute valgrind check: make valgrind_check
+  mkdir build
+  cmake -B build -G Ninja -DLIBCXX_BUILD=<your libcxx build folder>
+  ninja -C build
 
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -148,13 +146,8 @@ include path (e.g: /usr/include/).
 ExprTk has been built error and warning free using the following set
 of C++ compilers:
 
-  (*) GNU Compiler Collection (3.5+)
-  (*) Intel C++ Compiler (8.x+)
-  (*) Clang/LLVM (1.1+)
-  (*) PGI C++ (10.x+)
-  (*) Microsoft Visual Studio C++ Compiler (8.1+)
-  (*) IBM XL C/C++ (9.x+)
-  (*) C++ Builder (XE4+)
+  (*) Clang/LLVM (17.0+)
+  (*) Microsoft Visual Studio C++ Compiler (19.36+)
 
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -4597,9 +4590,9 @@ to stdout.
 
 --- snip ---
 #include <cstdio>
-#include <string>
 
-#include "exprtk.hpp"
+import std;
+import exprtk;
 
 template <typename T>
 struct myfunc : public exprtk::ifunction<T>
@@ -4686,7 +4679,7 @@ int main()
 When building ExprTk there are a number of defines that will enable or
 disable certain features and  capabilities. The defines can  either be
 part of a compiler command line switch or scoped around the include to
-the ExprTk header. The defines are as follows:
+the ExprTk global module fragment. The defines are as follows:
 
    (01) exprtk_enable_debugging
    (02) exprtk_disable_cardinal_pow_optimisation
@@ -4780,9 +4773,9 @@ operations.
 The source distribution of ExprTk is comprised of the following set of
 files:
 
-   (00) Makefile
+   (00) CMakeLists.txt
    (01) readme.txt
-   (02) exprtk.hpp
+   (02) exprtk.cppm
    (03) exprtk_test.cpp
    (04) exprtk_benchmark.cpp
    (05) exprtk_simple_example_01.cpp

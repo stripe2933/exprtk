@@ -18,9 +18,9 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include <string>
 
-#include "exprtk.hpp"
+import std;
+import exprtk;
 
 
 template <typename T>

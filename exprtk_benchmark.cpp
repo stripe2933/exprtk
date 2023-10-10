@@ -15,16 +15,12 @@
  **************************************************************
 */
 
-
 #include <cstdio>
 #include <cmath>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <deque>
+#include <cstdlib>
 
-#include "exprtk.hpp"
-
+import std;
+import exprtk;
 
 const std::string global_expression_list[]
                      = {
@@ -188,8 +184,7 @@ const double pi = 3.141592653589793238462643383279502;
 template <typename T>
 struct native
 {
-   typedef typename exprtk::details::functor_t<T> functor_t;
-   typedef typename functor_t::Type Type;
+   using Type = const T&;
 
    static inline T avg(Type x, Type y)
    {
@@ -481,7 +476,7 @@ void perform_file_based_benchmark(const std::string& file_name, const std::size_
    symbol_table.add_function("poly11", poly11);
    symbol_table.add_function("poly12", poly12);
 
-   static double e = exprtk::details::numeric::constant::e;
+   double e = std::numbers::e;
    symbol_table.add_variable("e", e, true);
 
    symbol_table.add_constants();
