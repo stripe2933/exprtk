@@ -39688,7 +39688,7 @@ namespace exprtk::rtl::io::file
 
 #ifndef exprtk_disable_rtl_vecops
 namespace exprtk::rtl::vecops {
-   namespace helper
+   export namespace helper
    {
       template <typename Vector>
       bool invalid_range(const Vector& v, const std::size_t r0, const std::size_t r1)
