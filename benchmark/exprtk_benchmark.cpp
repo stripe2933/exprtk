@@ -191,7 +191,7 @@ struct native
       return (x + y) / T(2);
    }
 
-   static inline T clamp(const Type l, const Type v, const Type u)
+   static inline T clamp(Type l, Type v, Type u)
    {
       return ((v < l) ? l : ((v > u) ? u : v));
    }
