@@ -33,7 +33,6 @@ module;
 
 #include <cmath>
 #include <cassert>
-#include <cstdio>
 
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
 #   ifndef NOMINMAX
@@ -3285,7 +3284,7 @@ namespace exprtk
             for (std::size_t i = 0; i < generator.size(); ++i)
             {
                const lexer::token& t = generator[i];
-               printf("Token[%02d] @ %03d  %6s  -->  '%s'\n",
+               std::println("Token[{:02}d] @ {:03}d  {:6}  -->  '{}'",
                       static_cast<int>(i),
                       static_cast<int>(t.position),
                       t.to_str(t.type).c_str(),
@@ -19468,10 +19467,10 @@ using node_type = sosos_node<T, SType0, SType1, SType2, Operation>;
 
       void dump_error(const type& error)
       {
-         printf("Position: %02d   Type: [%s]   Msg: %s\n",
+         std::println("Position: {:02}   Type: [{}]   Msg: {}",
                 static_cast<int>(error.token.position),
-                exprtk::parser_error::to_str(error.mode).c_str(),
-                error.diagnostic.c_str());
+                exprtk::parser_error::to_str(error.mode),
+                error.diagnostic);
       }
    }
 
@@ -27008,7 +27007,8 @@ using covocov_t = details::T0oT1oT2oT3_define<T, const_t, cref_t , const_t, cref
          return true;
       }
 
-using interval_t =typename interval_container_t<const void*>::interval_t;      using immutable_memory_map_t = interval_container_t<const void*>;
+      using interval_t = typename interval_container_t<const void*>::interval_t;
+      using immutable_memory_map_t = interval_container_t<const void*>;
       using immutable_symtok_map_t = std::map<interval_t,token_t>;
 
       interval_t make_memory_range(const T& t)
@@ -39056,11 +39056,11 @@ namespace exprtk::rtl::io
    namespace details
    {
       template <typename T>
-      void print_type(const std::string& fmt,
+      void print_type(std::string_view fmt,
                              const T v,
                              exprtk::details::numeric::details::real_type_tag)
       {
-         printf(fmt.c_str(),v);
+         std::vprint_unicode(fmt, v);
       }
 
       template <typename T>
@@ -39095,25 +39095,25 @@ namespace exprtk::rtl::io
             }
          }
 
-         static void print(const std::string& scalar_format, const scalar_t& s)
+         static void print(std::string_view scalar_format, const scalar_t& s)
          {
             print_type(scalar_format,s(),num_type());
          }
 
-         static void print(const std::string& scalar_format, const vector_t& v)
+         static void print(std::string_view scalar_format, const vector_t& v)
          {
             for (std::size_t i = 0; i < v.size(); ++i)
             {
                print_type(scalar_format,v[i],num_type());
 
                if ((i + 1) < v.size())
-                  printf(" ");
+                  std::print(" ");
             }
          }
 
          static void print(const string_t& s)
          {
-            printf("%s",to_str(s).c_str());
+            std::print("{}",to_str(s));
          }
       };
 
@@ -39157,7 +39157,7 @@ namespace exprtk::rtl::io
       T operator() (parameter_list_t parameters)
       {
          details::print_impl<T>::process(scalar_format_,parameters);
-         printf("\n");
+         std::println("");
          return T(0);
       }
 

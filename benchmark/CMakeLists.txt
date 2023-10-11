@@ -1,0 +1,2 @@
+add_executable(exprtk_benchmark exprtk_benchmark.cpp)
+target_link_libraries(exprtk_benchmark PRIVATE exprtk)

@@ -1,0 +1,2 @@
+add_executable(exprtk_test exprtk_test.cpp)
+target_link_libraries(exprtk_test PRIVATE exprtk)
