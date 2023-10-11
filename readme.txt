@@ -3541,7 +3541,7 @@ redefined as a function taking degree input.
 
        inline T operator()(const T& v)
        {
-          const T pi = exprtk::details::numeric::constant::pi;
+          const T pi = std::numbers::pi_v<T>;
           return std::sin((v * T(pi)) / T(180));
        }
     };
